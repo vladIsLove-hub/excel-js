@@ -13,15 +13,14 @@ class Dom {
     return this.$el.outerHTML.trim()
   }
 
-  text(text){
-    if(typeof text === 'string'){
+  text(text) {
+    if (typeof text !== 'undefined') {
       this.$el.textContent = text
       return this
     }
-    if(this.$el.tagName.toLowerCase() === 'input'){
+    if (this.$el.tagName.toLowerCase() === 'input') {
       return this.$el.value.trim()
     }
-
     return this.$el.textContent.trim()
   }
 
@@ -80,6 +79,13 @@ class Dom {
         })
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, s) => {
+      res[s] = this.$el.style[s]
+      return res
+    }, {})
+  }
+
   id(parse) {
     if (parse) {
       const parsed = this.id().split(':')
@@ -91,17 +97,27 @@ class Dom {
     return this.data.id
   }
 
-  focus(){
+  focus() {
     this.$el.focus()
     return this
   }
 
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
+  }
+
   addClass(className) {
     this.$el.classList.add(className)
+    return this
   }
 
   removeClass(className) {
     this.$el.classList.remove(className)
+    return this
   }
 }
 
