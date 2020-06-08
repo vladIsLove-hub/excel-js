@@ -29,9 +29,7 @@ export class Table extends ExcelComponent {
 
   init() {
     super.init()
-
     this.selectCell(this.$root.find('[data-id="0:0"]'))
-
     this.$on('formula:input', value => {
       this.selection.current
           .attr('data-value', value)
@@ -92,9 +90,7 @@ export class Table extends ExcelComponent {
       'ArrowDown',
       'ArrowUp'
     ]
-
     const {key} = event
-
     if (keys.includes(key) && !event.shiftKey) {
       event.preventDefault()
       const id = this.selection.current.id(true)
